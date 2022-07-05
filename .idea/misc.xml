@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/splash_image.xml" value="0.18385416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29128205128205126" />
+        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.29128205128205126" />
       </map>
     </option>
   </component>
