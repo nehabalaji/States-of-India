@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385937756023",
+    "project_id": "states-of-india-af4a4",
+    "storage_bucket": "states-of-india-af4a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385937756023:android:cbf866e614440adfaddb72",
+        "android_client_info": {
+          "package_name": "com.miniproject.soi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385937756023-s1velhqrlbvqebatsik7udh6r4bt01e2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcHUmg_RjYVq8THSgFc_D5BaB_n1L-teU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385937756023-s1velhqrlbvqebatsik7udh6r4bt01e2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
