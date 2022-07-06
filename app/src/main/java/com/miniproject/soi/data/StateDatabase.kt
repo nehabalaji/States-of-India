@@ -12,7 +12,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.concurrent.Executors
 
-@Database(entities = [State::class], version = 1, exportSchema = false)
+@Database(entities = [State::class], version = 1, exportSchema = true)
 abstract class StateDatabase: RoomDatabase() {
 
     abstract val dao: StateDao

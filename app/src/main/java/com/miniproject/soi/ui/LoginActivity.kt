@@ -1,4 +1,4 @@
-package com.miniproject.soi
+package com.miniproject.soi.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.miniproject.soi.R
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val email = emailET.text.toString()
             val password = passwordEt.text.toString()
-            Log.v("SIGN IN", email+password)
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
                     val intent = Intent(this, QuizActivity::class.java)
