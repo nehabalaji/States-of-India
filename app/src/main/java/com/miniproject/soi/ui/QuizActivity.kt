@@ -90,11 +90,11 @@ class QuizActivity : AppCompatActivity() {
     private fun updateResult(result: Boolean){
         noOfQuestions++;
         if(result){
-            Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show()
             noOfCorrectAnswers++;
         }
         else{
-            Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show()
             noOfWrongAnswers++;
         }
         if (noOfQuestions<10) {
@@ -105,7 +105,7 @@ class QuizActivity : AppCompatActivity() {
             noOfQuestions=0;
             val intent = Intent(this, ResultsActivity::class.java)
             intent.putExtra("CORRECT_ANSWERS", noOfCorrectAnswers);
-            intent.putExtra("WRONG ANSWERS", noOfWrongAnswers);
+            intent.putExtra("WRONG_ANSWERS", noOfWrongAnswers);
             startActivity(intent);
             finishAffinity();
         }
