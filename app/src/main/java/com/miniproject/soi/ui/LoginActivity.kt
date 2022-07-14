@@ -36,21 +36,9 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEt.text.toString()
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    var uid = it.result.user?.uid!!
-                    database.child("Users").child(uid).child("role").get().addOnSuccessListener {
-                        if (it.value?.toString().equals("student")!!) {
-                            val intent = Intent(this, QuizActivity::class.java)
-                            startActivity(intent);
-                            finish()
-                        }
-                        else {
-                            val intent = Intent(this, TeachersActivity::class.java)
-                            startActivity(intent);
-                            finish()
-                        }
-                    }.addOnFailureListener {
-                        Toast.makeText(this, "Error occurred!", Toast.LENGTH_SHORT).show()
-                    }
+                    val intent = Intent(this, DashboardActivity::class.java)
+                    startActivity(intent);
+                    finish()
                 }
                 else {
                     Log.v("SIGN IN", it.exception.toString())
@@ -64,20 +52,9 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val currentUser: FirebaseUser? = mAuth.currentUser;
         if(currentUser!=null) {
-            database.child("Users").child(currentUser.uid).child("role").get().addOnSuccessListener {
-                if (it.value?.toString().equals("student")!!) {
-                    val intent = Intent(this, TeachersActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                else {
-                    val intent = Intent(this, QuizActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }.addOnFailureListener {
-                Toast.makeText(this, "Error occurred!", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

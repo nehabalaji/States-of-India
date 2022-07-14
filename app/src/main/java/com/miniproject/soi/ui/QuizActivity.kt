@@ -62,30 +62,30 @@ class QuizActivity : AppCompatActivity() {
         quizView?.setOnOptionsClickListener(optionsClickListener)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater =  menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var id = item.itemId
-        when(id){
-            R.id.list -> {
-                val intent = Intent(this, ListActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-
-            R.id.settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        val inflater =  menuInflater
+//        inflater.inflate(R.menu.main_menu, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        var id = item.itemId
+//        when(id){
+//            R.id.list -> {
+//                val intent = Intent(this, ListActivity::class.java)
+//                startActivity(intent)
+//                return true
+//            }
+//
+//            R.id.settings -> {
+//                val intent = Intent(this, SettingsActivity::class.java)
+//                startActivity(intent)
+//                return true
+//            }
+//
+//            else -> return super.onOptionsItemSelected(item)
+//        }
+//    }
 
     private fun updateResult(result: Boolean){
         noOfQuestions++;

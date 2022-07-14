@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizForFun">
         <activity
+            android:name=".ui.StudentsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.HistoryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.RulesActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.DashboardActivity"
             android:exported="true" />
         <activity
