@@ -48,6 +48,7 @@ class QuizView(c: Context, attributeSet: AttributeSet) : LinearLayout(c, attribu
         questionTV.setTextColor(resources.getColor(android.R.color.black))
         questionTV.textSize = 24F
 
+        this.removeAllViews()
         this.addView(questionTV)
         this.addView(options)
 

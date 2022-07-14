@@ -20,6 +20,9 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var quizViewModel: QuizViewModel
     private lateinit var optionsPreference: SharedPreferences
     private lateinit var noOfOptions: String
+    var noOfQuestions=0;
+    var noOfCorrectAnswers =0;
+    var noOfWrongAnswers=0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,14 +88,27 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun updateResult(result: Boolean){
+        noOfQuestions++;
         if(result){
             Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show()
+            noOfCorrectAnswers++;
         }
         else{
             Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show()
+            noOfWrongAnswers++;
         }
-        quizViewModel.refreshGame()
-        quizView?.reset()
+        if (noOfQuestions<10) {
+            quizViewModel.refreshGame()
+            quizView?.reset()
+        }
+        else {
+            noOfQuestions=0;
+            val intent = Intent(this, ResultsActivity::class.java)
+            intent.putExtra("CORRECT_ANSWERS", noOfCorrectAnswers);
+            intent.putExtra("WRONG ANSWERS", noOfWrongAnswers);
+            startActivity(intent);
+            finishAffinity();
+        }
     }
 
     private val listener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, s ->

@@ -10,13 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.miniproject.soi.R
-
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var database: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +29,28 @@ class LoginActivity : AppCompatActivity() {
         val passwordEt = findViewById<EditText>(R.id.etPassword);
         val loginBtn = findViewById<Button>(R.id.btnLogin);
 
+        database = Firebase.database.reference
+
         loginBtn.setOnClickListener {
             val email = emailET.text.toString()
             val password = passwordEt.text.toString()
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    val intent = Intent(this, QuizActivity::class.java)
-                    startActivity(intent);
-                    finish()
+                    var uid = it.result.user?.uid!!
+                    database.child("Users").child(uid).child("role").get().addOnSuccessListener {
+                        if (it.value?.toString().equals("student")!!) {
+                            val intent = Intent(this, QuizActivity::class.java)
+                            startActivity(intent);
+                            finish()
+                        }
+                        else {
+                            val intent = Intent(this, TeachersActivity::class.java)
+                            startActivity(intent);
+                            finish()
+                        }
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Error occurred!", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 else {
                     Log.v("SIGN IN", it.exception.toString())
@@ -48,9 +64,20 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val currentUser: FirebaseUser? = mAuth.currentUser;
         if(currentUser!=null) {
-            val intent = Intent(this, QuizActivity::class.java)
-            startActivity(intent)
-            finish()
+            database.child("Users").child(currentUser.uid).child("role").get().addOnSuccessListener {
+                if (it.value?.toString().equals("student")!!) {
+                    val intent = Intent(this, TeachersActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else {
+                    val intent = Intent(this, QuizActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            }.addOnFailureListener {
+                Toast.makeText(this, "Error occurred!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

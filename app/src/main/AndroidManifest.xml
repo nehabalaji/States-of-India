@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.miniproject.soi" >
+    package="com.miniproject.soi">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +10,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.QuizForFun" >
+        android:theme="@style/Theme.QuizForFun">
+        <activity
+            android:name=".ui.DashboardActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.ResultsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.TeachersActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.SettingsActivity"
             android:exported="true" />
@@ -20,7 +31,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
