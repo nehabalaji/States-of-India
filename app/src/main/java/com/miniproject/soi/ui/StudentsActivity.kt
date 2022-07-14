@@ -1,8 +1,10 @@
 package com.miniproject.soi.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +18,8 @@ class StudentsActivity : AppCompatActivity() {
     val mAuth = FirebaseAuth.getInstance()
     var students: List<String> = emptyList()
     lateinit var recyclerView: RecyclerView
+    lateinit var adapter: studentsAdapter
+    lateinit var clickListener: studentsAdapter.ClickListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +38,16 @@ class StudentsActivity : AppCompatActivity() {
         }.addOnCompleteListener {
             getStudents(users);
         }
+
+        clickListener = object : studentsAdapter.ClickListener {
+            override fun onClick(position: Int, view: View) {
+                val uid = adapter.getStudentAtPosition(position)!!
+                val intent = Intent(this@StudentsActivity, StudentHistoryActivity::class.java)
+                intent.putExtra("STUDENT_UID", uid)
+                startActivity(intent)
+            }
+
+        }
     }
 
     fun getStudents(users: List<String>) {
@@ -46,7 +60,8 @@ class StudentsActivity : AppCompatActivity() {
                 recyclerView.setHasFixedSize(true)
                 val layoutManager = LinearLayoutManager(this)
                 recyclerView.layoutManager = layoutManager
-                val adapter = studentsAdapter(students)
+                adapter = studentsAdapter(students)
+                adapter.setItemClickListener(clickListener)
                 recyclerView.adapter = adapter
             }
         }

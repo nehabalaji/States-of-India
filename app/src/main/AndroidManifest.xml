@@ -38,6 +38,8 @@
         <activity
             android:name=".ui.QuizActivity"
             android:exported="true" />
+        <activity android:name=".ui.StudentHistoryActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
