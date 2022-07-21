@@ -24,9 +24,6 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
 
-        val mAuth = FirebaseAuth.getInstance()
-        val databaseReference = Firebase.database.reference
-
         correctAnswers = findViewById(R.id.correctTV);
         wrongAnswers = findViewById(R.id.incorrectTV);
         earnedPoints = findViewById(R.id.earnedPointsTV);
@@ -46,18 +43,18 @@ class ResultsActivity : AppCompatActivity() {
         date.text = quizDate
 
         startAgain.setOnClickListener {
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("correct").setValue(correct.toString())
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("wrong").setValue(wrong.toString())
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("points").setValue(score.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("correct").setValue(correct.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("wrong").setValue(wrong.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("points").setValue(score.toString())
             val intent = Intent(this, QuizActivity::class.java)
             startActivity(intent);
             finish()
         }
 
         back.setOnClickListener {
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("correct").setValue(correct.toString())
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("wrong").setValue(wrong.toString())
-            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("points").setValue(score.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("correct").setValue(correct.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("wrong").setValue(wrong.toString())
+//            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("points").setValue(score.toString())
             val intent = Intent(this, DashboardActivity::class.java)
             startActivity(intent);
             finishAffinity()

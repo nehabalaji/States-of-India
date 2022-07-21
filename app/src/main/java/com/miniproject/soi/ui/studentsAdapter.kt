@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.miniproject.soi.R
-import com.miniproject.soi.data.History
 
 class studentsAdapter(list: List<String>): RecyclerView.Adapter<studentViewHolder>() {
 
@@ -45,8 +44,8 @@ class studentsAdapter(list: List<String>): RecyclerView.Adapter<studentViewHolde
         return myList.size
     }
 
-    public interface ClickListener {
-        public fun onClick(position: Int, view: View)
+    interface ClickListener {
+        fun onClick(position: Int, view: View)
     }
 
     fun setItemClickListener(clickListener: ClickListener) {
@@ -58,7 +57,7 @@ class studentsAdapter(list: List<String>): RecyclerView.Adapter<studentViewHolde
     }
 }
 
-public class studentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class studentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var student: TextView
 
     init {

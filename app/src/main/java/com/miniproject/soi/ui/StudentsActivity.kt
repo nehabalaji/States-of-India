@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -15,11 +15,12 @@ import com.miniproject.soi.R
 
 class StudentsActivity : AppCompatActivity() {
     lateinit var databaseReference: DatabaseReference
-    val mAuth = FirebaseAuth.getInstance()
     var students: List<String> = emptyList()
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: studentsAdapter
     lateinit var clickListener: studentsAdapter.ClickListener
+    lateinit var backBtn: ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,12 @@ class StudentsActivity : AppCompatActivity() {
         databaseReference = Firebase.database.reference
 
         recyclerView = findViewById(R.id.rvStudents)
+
+        backBtn = findViewById(R.id.imageViewHistory)
+
+        backBtn.setOnClickListener {
+            finish()
+        }
 
         var users: List<String> = emptyList()
 

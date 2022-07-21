@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -22,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_login)
 
         mAuth = Firebase.auth
@@ -34,15 +36,20 @@ class LoginActivity : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val email = emailET.text.toString()
             val password = passwordEt.text.toString()
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val intent = Intent(this, DashboardActivity::class.java)
-                    startActivity(intent);
-                    finish()
-                }
-                else {
-                    Log.v("SIGN IN", it.exception.toString())
-                    Toast.makeText(this, "Check credentials!"+it.exception, Toast.LENGTH_SHORT).show()
+            if(email.isEmpty() || email.isNullOrBlank() || password.isEmpty() || password.isNullOrBlank()) {
+                Toast.makeText(this, "Enter a valid Username/Password", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent);
+                        finish()
+                    }
+                    else {
+                        Log.v("SIGN IN", it.exception.toString())
+                        Toast.makeText(this, "Check credentials!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

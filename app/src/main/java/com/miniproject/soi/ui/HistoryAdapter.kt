@@ -5,16 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.miniproject.soi.R
 import com.miniproject.soi.data.History
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HistoryAdapter(list: List<History>): RecyclerView.Adapter<historyViewHolder>() {
 
-    val mAuth = FirebaseAuth.getInstance()
-    val databaseReference = Firebase.database.reference
     private var myList: List<History> = emptyList()
 
     init {
@@ -36,7 +34,17 @@ class HistoryAdapter(list: List<History>): RecyclerView.Adapter<historyViewHolde
 
         correct.text = list.getCorrect()
         points.text = list.getPoints()
-        date.text = list.getDate()
+        var d: Date? = null
+        val formatter = SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy")
+        val temp = list.getDate()
+        try {
+            d= formatter.parse(temp)!!
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        val formatDate = SimpleDateFormat("MM-dd-yyyy").format(d!!)
+        val formatTime = SimpleDateFormat("HH:mm:ss").format(d)
+        date.text = formatDate+" at "+formatTime
     }
 
     override fun getItemCount(): Int {

@@ -10,10 +10,15 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.miniproject.soi.R
 import com.miniproject.soi.custom.QuizView
 import com.miniproject.soi.custom.QuizViewModel
 import com.miniproject.soi.custom.QuizViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 class QuizActivity : AppCompatActivity() {
     private var quizView: QuizView? = null
@@ -23,6 +28,8 @@ class QuizActivity : AppCompatActivity() {
     var noOfQuestions=0;
     var noOfCorrectAnswers =0;
     var noOfWrongAnswers=0;
+    val mAuth = FirebaseAuth.getInstance()
+    val databaseReference = Firebase.database.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +110,11 @@ class QuizActivity : AppCompatActivity() {
         }
         else {
             noOfQuestions=0;
+            val d = Calendar.getInstance().time
+            val score = (5*noOfCorrectAnswers) - (2*noOfWrongAnswers)
+            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("correct").setValue(noOfCorrectAnswers.toString())
+            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("wrong").setValue(noOfWrongAnswers.toString())
+            databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(d.toString()).child("points").setValue(score.toString())
             val intent = Intent(this, ResultsActivity::class.java)
             intent.putExtra("CORRECT_ANSWERS", noOfCorrectAnswers);
             intent.putExtra("WRONG_ANSWERS", noOfWrongAnswers);

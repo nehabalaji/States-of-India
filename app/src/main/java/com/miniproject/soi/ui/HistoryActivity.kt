@@ -1,8 +1,9 @@
 package com.miniproject.soi.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +20,7 @@ class HistoryActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     var list: List<String> = emptyList()
     var historyList: List<History> = emptyList()
+    lateinit var backBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,11 @@ class HistoryActivity : AppCompatActivity() {
         databaseReference = Firebase.database.reference
 
         recyclerView = findViewById(R.id.rvHistory)
+        backBtn = findViewById(R.id.imageViewHistory)
+
+        backBtn.setOnClickListener {
+            finish()
+        }
 
         databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").get().addOnSuccessListener {
             for (i in it.children) {
@@ -41,7 +48,7 @@ class HistoryActivity : AppCompatActivity() {
         for (i in list) {
             databaseReference.child("Users").child(mAuth.currentUser?.uid.toString()).child("History").child(i).get().addOnSuccessListener {
                 val c = it.child("correct").value.toString()
-                val points = it.child("wrong").value.toString()
+                val points = it.child("points").value.toString()
                 val history = History(i, c, points)
                 historyList = historyList + history
             }.addOnCompleteListener {
